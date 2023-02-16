@@ -1,5 +1,5 @@
-let hours = [9, 10, 11, 12, 1, 2, 3, 4, 5];
-let booked = [{ start: 10 }, { start: 1 }, { start: 4 }];
+// let hours = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+// let booked = [{ start: 10 }, { start: 1 }, { start: 4 }];
 
 function findAvailableHours(hours, booked) {
   let available = [];
@@ -17,3 +17,5 @@ function findAvailableHours(hours, booked) {
   }
   return available;
 }
+
+export default findAvailableHours;
