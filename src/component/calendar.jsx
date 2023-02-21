@@ -6,7 +6,6 @@ import "react-calendar/dist/Calendar.css";
 import findAvailableHours from "./availableHours/availableHoursHelper";
 import AvailableHours from "./availableHours/AvailableHours";
 import MyForm from "./form/Form";
-import SampleButton from "./SampleButton";
 
 function MyCalendar() {
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
@@ -23,7 +22,6 @@ function MyCalendar() {
 
   return (
     <div>
-      <SampleButton />
       <Calendar value={selectedDate} onChange={handleDateChange} />
       <div>Selected date: {selectedDate && selectedDate.toDateString()}</div>
       <AvailableHours hours={available}></AvailableHours>
