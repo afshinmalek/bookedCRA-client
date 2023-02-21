@@ -1,0 +1,7 @@
+POST http://localhost:3001/submit-form HTTP/1.1
+content-type: application/json
+
+{
+    "name": "restC1",
+    "email": "a@g.com"
+}
