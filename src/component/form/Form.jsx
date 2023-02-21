@@ -8,7 +8,7 @@ import {
   setSubmitted,
   setError,
   reset,
-} from "./formSlice";
+} from "../redux/slice/formSlice";
 
 const MyForm = () => {
   const values = useSelector((state) => state.form.values);
