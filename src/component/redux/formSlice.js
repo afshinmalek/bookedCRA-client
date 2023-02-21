@@ -1,4 +1,4 @@
-import { createSlice, cofigureStore } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const formSlice = createSlice({
   name: 'form',
@@ -32,7 +32,4 @@ const formSlice = createSlice({
 
 export const { addAvailable, addDate, addId, addNameEmail, addTime} = formSlice.actions
 
-const store = configureStore({
-  reducer: formSlice.reducer
-})
 
