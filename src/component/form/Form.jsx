@@ -10,6 +10,23 @@ import {
   reset,
 } from "../redux/slice/formSlice";
 
+const submitFormData = (values) => {
+  axios
+    .post("http://localhost:3001/submit-form", values, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      // handle success
+    })
+    .catch((error) => {
+      console.log(error);
+      // handle error
+    });
+};
+
 const MyForm = () => {
   const values = useSelector((state) => state.form.values);
   const submitting = useSelector((state) => state.form.submitting);
@@ -17,26 +34,13 @@ const MyForm = () => {
   const error = useSelector((state) => state.form.error);
   const dispatch = useDispatch();
 
-  function submitFormData(values) {
-    axios
-      .post("http://localhost:3001/submit-form", values, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        // handle success
-      })
-      .catch((error) => {
-        console.log(error);
-        // handle error
-      });
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     dispatch(setSubmitting());
+
+    if (submitting) {
+      return;
+    }
 
     try {
       // Submit form data
