@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedHour } from "../redux/slice/bbbSlice";
+import { setSelectedHour } from "../redux/slice/timeSlice";
 
 function AvailableHours() {
-  const [hours, setHours] = useState([9, 10, 11, 12, 1, 2, 3, 4, 5]);
-  //const [selectedHour, setSelectedHour] = useState();
-
   const selectedHour = useSelector((state) => state.time.selectedHour);
-
-  //const hours = useSelector((state) => state.availableHours.hours);
+  const hours = useSelector((state) => state.time.hours);
   const dispatch = useDispatch();
 
-  //const [hours, setHours] = useState([9, 10, 11, 12, 1, 2, 3, 4, 5]);
-
   const handleClick = (hour) => {
-    // setSelectedHour(hour);
-
     dispatch(setSelectedHour(hour));
   };
 

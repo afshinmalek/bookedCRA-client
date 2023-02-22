@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const availableHoursSlice = createSlice({
-  name: "ddd",
+  name: "time",
   initialState: {
     selectedHour: null,
-    hours: [9, 10, 11, 12, 1, 2, 3],
+    hours: [9, 10, 11, 12, 1, 2, 3, 4, 5],
   },
   reducers: {
     setSelectedHour: (state, action) => {
