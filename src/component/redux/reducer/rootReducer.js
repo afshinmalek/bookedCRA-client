@@ -1,13 +1,13 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import formReducer from "../slice/formSlice";
 import dateReducer from "../slice/dateSlice";
-//import timeReducer from "../slice/timeSlice";
+import timeReducer from "../slice/bbbSlice";
 //import maiReducer from "../slice/maiSlice";
 
 const rootReducer = combineReducers({
   form: formReducer,
   date: dateReducer,
-  //time: timeReducer,
+  time: timeReducer,
   //mai: maiReducer,
 });
 
