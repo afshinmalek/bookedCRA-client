@@ -8,7 +8,7 @@ import AvailableHours from "./availableHours/AvailableHours";
 import MyForm from "./form/Form";
 
 function MyCalendar() {
-  const selectedDate = useSelector((state) => state.calendar.selectedDate);
+  const selectedDate = useSelector((state) => state.date.selectedDate);
   const dispatch = useDispatch();
 
   const handleDateChange = (date) => {
