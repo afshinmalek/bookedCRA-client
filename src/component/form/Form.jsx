@@ -33,6 +33,17 @@ const MyForm = () => {
   const submitted = useSelector((state) => state.form.submitted);
   const error = useSelector((state) => state.form.error);
   const dispatch = useDispatch();
+  const selectedHour = useSelector((state) => state.time.selectedHour);
+  const selectedDate = useSelector((state) => state.date.selectedDate);
+
+  let date = new Date(selectedDate);
+  let rDate = date.toDateString();
+
+  const allValues = {
+    ...values,
+    time: selectedHour,
+    date: rDate,
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -44,7 +55,7 @@ const MyForm = () => {
 
     try {
       // Submit form data
-      await submitFormData(values);
+      await submitFormData(allValues);
       dispatch(setSubmitted());
     } catch (err) {
       dispatch(setError(err.message));
