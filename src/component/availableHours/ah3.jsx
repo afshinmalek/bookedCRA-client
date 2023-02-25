@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedHour } from "../redux/slice/timeSlice";
+import {
+  setSelectedHour,
+  setBooked,
+  setAvailable,
+} from "../redux/slice/timeSlice";
+import findAvailableHours from "./availableHoursHelper";
 
 function AvailableHours() {
   const selectedHour = useSelector((state) => state.time.selectedHour);
+  const booked = useSelector((state) => state.time.booked);
+  const available = useSelector((state) => state.time.available);
+
   const hours = useSelector((state) => state.time.hours);
   const dispatch = useDispatch();
 
@@ -11,17 +19,23 @@ function AvailableHours() {
     dispatch(setSelectedHour(hour));
   };
 
-  const fetchHours = async () => {
+  const fetchBooked = async () => {
     const response = await fetch("http://localhost:3001/data");
-    const data = await response.json();
-    setHours(data);
+    const booked = await response.json();
+    console.log("booked: " + booked);
+    dispatch(setBooked(booked));
   };
 
   useEffect(() => {
-    fetchHours();
-  }, []);
+    fetchBooked();
+  }, [booked]);
 
-  const hoursButton = hours.map((hour) => {
+  useEffect(() => {
+    const available = findAvailableHours(hours, booked);
+    dispatch(setAvailable(available));
+  }, [hours, booked, dispatch]);
+
+  const hoursButton = available.map((hour) => {
     return (
       <div key={hour}>
         <button
