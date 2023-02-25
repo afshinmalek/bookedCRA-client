@@ -11,15 +11,15 @@ function AvailableHours() {
     dispatch(setSelectedHour(hour));
   };
 
-  // const fetchHours = async () => {
-  //   const response = await fetch("/api/hours");
-  //   const data = await response.json();
-  //   setHours(data);
-  // };
+  const fetchHours = async () => {
+    const response = await fetch("http://localhost:3001/data");
+    const data = await response.json();
+    setHours(data);
+  };
 
-  // useEffect(() => {
-  //   fetchHours();
-  // }, []);
+  useEffect(() => {
+    fetchHours();
+  }, []);
 
   const hoursButton = hours.map((hour) => {
     return (
