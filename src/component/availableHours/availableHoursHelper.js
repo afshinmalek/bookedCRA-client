@@ -6,11 +6,11 @@ function findAvailableHours(hours, booked) {
   let i = 0;
   let j = 0;
   while (i < hours.length) {
-    if (j === booked.length || hours[i] !== booked[j].start) {
+    if (j === booked.length || hours[i] !== booked[j].time) {
       available.push(hours[i]);
       i++;
     }
-    if (j !== booked.length && hours[i] === booked[j].start) {
+    if (j !== booked.length && hours[i] === booked[j].time) {
       i++;
       j++;
     }

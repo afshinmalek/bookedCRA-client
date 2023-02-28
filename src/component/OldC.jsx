@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedDate } from "./redux/slice/dateSlice";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import findAvailableHours from "./availableHours/availableHoursHelper";
+//import findAvailableHours from "./availableHours/availableHoursHelper";
 import AvailableHours from "./availableHours/ah3";
 import MyForm from "./form/Form";
 

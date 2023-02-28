@@ -7,7 +7,6 @@ function AvailableHours({ hours }) {
     (state) => state.availableHours.selectedHour
   );
   const dispatch = useDispatch();
-  //const hours = props.hours;
 
   const handleClick = (hour) => {
     dispatch(setSelectedHour(hour));

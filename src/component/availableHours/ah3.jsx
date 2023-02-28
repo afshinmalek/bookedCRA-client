@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import {
   setSelectedHour,
   setBooked,
@@ -8,10 +9,10 @@ import {
 import findAvailableHours from "./availableHoursHelper";
 
 function AvailableHours() {
+  let selectedDate = useSelector((state) => state.date.selectedDate);
   const selectedHour = useSelector((state) => state.time.selectedHour);
   const booked = useSelector((state) => state.time.booked);
   const available = useSelector((state) => state.time.available);
-
   const hours = useSelector((state) => state.time.hours);
   const dispatch = useDispatch();
 
@@ -19,38 +20,54 @@ function AvailableHours() {
     dispatch(setSelectedHour(hour));
   };
 
-  const fetchBooked = async () => {
-    const response = await fetch("http://localhost:3001/data");
-    const booked = await response.json();
-    console.log("booked: " + booked);
-    dispatch(setBooked(booked));
-  };
+  function refresh() {
+    async function fetchBooked() {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/data/${selectedDate.toDateString()}`
+        );
+        dispatch(setBooked(response.data));
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
-  useEffect(() => {
     fetchBooked();
-  }, [booked]);
+    const updatedAvailable = findAvailableHours(hours, booked);
+    dispatch(setAvailable(updatedAvailable));
+  }
 
   useEffect(() => {
-    const available = findAvailableHours(hours, booked);
-    dispatch(setAvailable(available));
-  }, [hours, booked, dispatch]);
+    const fetchBooked = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/data/${selectedDate.toDateString()}`
+        );
+        dispatch(setBooked(response.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  const hoursButton = available.map((hour) => {
-    return (
-      <div key={hour}>
-        <button
-          onClick={() => {
-            handleClick(hour);
-          }}
-        >
-          {hour}
-        </button>
-      </div>
-    );
-  });
+    fetchBooked();
+  }, [selectedDate, dispatch]);
+
+  useEffect(() => {
+    const updatedAvailable = findAvailableHours(hours, booked);
+    dispatch(setAvailable(updatedAvailable));
+  }, [selectedDate, booked, dispatch, hours]);
+
+  const hoursButton = available.map((hour) => (
+    <div key={hour}>
+      <button onClick={() => handleClick(hour)}>{hour}</button>
+    </div>
+  ));
 
   return (
     <div>
+      <button className="icon" onClick={refresh}>
+        refresh
+      </button>
       {hoursButton}
       {selectedHour && <p>Selected Hour: {selectedHour}</p>}
     </div>
