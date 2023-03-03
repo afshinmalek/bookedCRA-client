@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -9,23 +8,11 @@ import {
   setError,
   reset,
 } from "../redux/slice/formSlice";
+import { setBooked } from "../redux/slice/timeSlice";
+import { setAvailable } from "../redux/slice/timeSlice";
 
-const submitFormData = (values) => {
-  axios
-    .post("http://localhost:3001/submit-form", values, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => {
-      console.log(response);
-      // handle success
-    })
-    .catch((error) => {
-      console.log(error);
-      // handle error
-    });
-};
+import { fetchAndUpdate } from "./formUtil";
+import findAvailableHours from "../availableHours/ahhelper";
 
 const MyForm = () => {
   const values = useSelector((state) => state.form.values);
@@ -35,6 +22,8 @@ const MyForm = () => {
   const dispatch = useDispatch();
   const selectedHour = useSelector((state) => state.time.selectedHour);
   const selectedDate = useSelector((state) => state.date.selectedDate);
+  const hours = useSelector((state) => state.time.hours);
+  const booked = useSelector((state) => state.time.booked);
 
   let date = new Date(selectedDate);
   let rDate = date.toDateString();
@@ -53,9 +42,28 @@ const MyForm = () => {
       return;
     }
 
+    if (!navigator.onLine) {
+      dispatch(
+        setError(
+          "You are currently offline. Please connect to the internet to submit the form."
+        )
+      );
+      return;
+    }
+
     try {
-      // Submit form data
-      await submitFormData(allValues);
+      await fetchAndUpdate(
+        selectedDate,
+        allValues,
+        dispatch,
+        hours,
+        booked,
+        setBooked,
+        setAvailable,
+        findAvailableHours,
+        setSubmitted
+      );
+
       dispatch(setSubmitted());
     } catch (err) {
       dispatch(setError(err.message));

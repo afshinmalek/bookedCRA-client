@@ -17,14 +17,18 @@ const formSlice = createSlice({
       state.values[field] = value;
     },
     setSubmitting: (state) => {
+      state.error = null;
       state.submitting = true;
+      state.submitted = false;
     },
     setSubmitted: (state) => {
       state.submitting = false;
       state.submitted = true;
+      state.error = null;
     },
     setError: (state, action) => {
       state.submitting = false;
+      state.submitted = false;
       state.error = action.payload;
     },
     reset: (state) => {

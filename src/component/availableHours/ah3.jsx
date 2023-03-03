@@ -6,7 +6,7 @@ import {
   setBooked,
   setAvailable,
 } from "../redux/slice/timeSlice";
-import findAvailableHours from "./availableHoursHelper";
+import findAvailableHours from "./ahhelper";
 
 function AvailableHours() {
   let selectedDate = useSelector((state) => state.date.selectedDate);
