@@ -91,24 +91,22 @@ const MyForm = () => {
         value={values.email}
         onChange={handleChange}
       />
+      <div className="submit">
+        <button type="submit" disabled={submitting}>
+          {submitting ? "Submitting..." : "Submit"}
+        </button>
 
-      {
-        //error && <div>{error}</div>
-      }
-      <button type="submit" disabled={submitting}>
-        {submitting ? "Submitting..." : "Submit"}
-      </button>
-
-      <button type="button" onClick={handleReset}>
-        Reset
-      </button>
-      {error ? (
-        <div>{error}</div>
-      ) : (
-        submitted &&
-        !error &&
-        !submitting && <div>Form submitted successfully!</div>
-      )}
+        <button type="button" onClick={handleReset}>
+          Reset
+        </button>
+        {error ? (
+          <div>{error}</div>
+        ) : (
+          submitted &&
+          !error &&
+          !submitting && <div>Form submitted successfully!</div>
+        )}
+      </div>
     </form>
   );
 };
