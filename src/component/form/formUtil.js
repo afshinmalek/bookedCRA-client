@@ -46,10 +46,10 @@ async function submitFormData(values, dispatch, setSubmitted, setError) {
       dispatch(setSubmitted());
     } else {
       // display an error message to the user
-      setError("An error occurred while submitting the form.");
+      dispatch(setError(data.message));
     }
   } catch (error) {
     console.error(error);
-    setError("An error occurred while submitting the form.");
+    dispatch(setError("An error occurred while submitting the form."));
   }
 }

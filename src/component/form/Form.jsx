@@ -1,4 +1,5 @@
 import React from "react";
+import "./form.css";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -51,23 +52,18 @@ const MyForm = () => {
       return;
     }
 
-    try {
-      await fetchAndUpdate(
-        selectedDate,
-        allValues,
-        dispatch,
-        hours,
-        booked,
-        setBooked,
-        setAvailable,
-        findAvailableHours,
-        setSubmitted
-      );
-
-      dispatch(setSubmitted());
-    } catch (err) {
-      dispatch(setError(err.message));
-    }
+    await fetchAndUpdate(
+      selectedDate,
+      allValues,
+      dispatch,
+      hours,
+      booked,
+      setBooked,
+      setAvailable,
+      findAvailableHours,
+      setSubmitted,
+      setError
+    );
   };
 
   const handleChange = (event) => {
@@ -80,28 +76,39 @@ const MyForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form-input" onSubmit={handleSubmit}>
       <input
         type="text"
         name="name"
+        placeholder="your name"
         value={values.name}
         onChange={handleChange}
       />
       <input
         type="email"
         name="email"
+        placeholder="email address"
         value={values.email}
         onChange={handleChange}
       />
 
-      {error && <div>{error}</div>}
+      {
+        //error && <div>{error}</div>
+      }
       <button type="submit" disabled={submitting}>
         {submitting ? "Submitting..." : "Submit"}
       </button>
-      {submitted && <div>Form submitted successfully!</div>}
+
       <button type="button" onClick={handleReset}>
         Reset
       </button>
+      {error ? (
+        <div>{error}</div>
+      ) : (
+        submitted &&
+        !error &&
+        !submitting && <div>Form submitted successfully!</div>
+      )}
     </form>
   );
 };

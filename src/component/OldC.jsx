@@ -2,10 +2,11 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedDate } from "./redux/slice/dateSlice";
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+import "./cal.css";
 //import findAvailableHours from "./availableHours/availableHoursHelper";
-import AvailableHours from "./availableHours/ah3";
+import AvailableHours from "./availableHours/ah4";
 import MyForm from "./form/Form";
+import "./calendar.css";
 
 function MyCalendar() {
   const selectedDate = useSelector((state) => state.date.selectedDate);
@@ -21,11 +22,13 @@ function MyCalendar() {
   // let available = findAvailableHours(hours, booked);
   // hours={available}
   return (
-    <div>
+    <div className="container">
       <Calendar value={selectedDate} onChange={handleDateChange} />
-      <div>Selected date: {selectedDate && selectedDate.toDateString()}</div>
-      <AvailableHours />
-      <MyForm></MyForm>
+      <section>
+        <div>Selected date: {selectedDate && selectedDate.toDateString()}</div>
+        <AvailableHours />
+        <MyForm></MyForm>
+      </section>
     </div>
   );
 }
