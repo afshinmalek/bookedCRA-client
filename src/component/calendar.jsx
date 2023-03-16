@@ -17,7 +17,7 @@ function MyCalendar() {
   return (
     <div className="container">
       <Calendar value={selectedDate} onChange={handleDateChange} />
-      <div>Selected date: {selectedDate && selectedDate.toDateString()}</div>
+      <div>Selected date: {selectedDate && selectedDate?.toDateString()}</div>
       <AvailableHours />
       <MyForm></MyForm>
     </div>

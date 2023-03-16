@@ -1,0 +1,54 @@
+mport { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import {
+  setBooked,
+  setAvailable,
+} from "../redux/slice/timeSlice";
+import findAvailableHours from "../availableHours/ahhelper";
+
+export const submitFormData = createAsyncThunk(
+  "form/submitFormData",
+  async (values, { dispatch }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/submit-form",
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = response.data;
+      console.log(
+        "************* formUtil *********data i submitted #1 *********",
+        data.message
+      );
+
+      // dispatch the setSubmitted action only if the server responds with a success message
+      if (data.message === "Data added successfully") {
+        dispatch(setSubmitted());
+        const timestamp = Math.floor(values.date.getTime());
+        const response = await axios.get(
+          `http://localhost:3001/data/${timestamp}`
+        );
+        dispatch(setBooked(response.data));
+        const updatedAvailable = findAvailableHours(
+          values.time,
+          response.data
+        );
+        dispatch(setAvailable(updatedAvailable));
+      } else if (
+        data.message === "Combination of date and time already exists"
+      ) {
+        dispatch(setError("That time is already booked"));
+      } else {
+        // display an error message to the user
+        dispatch(setError(data.message));
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(setError("An error occurred while submitting the form."));
+    }
+  }
+);

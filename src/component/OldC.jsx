@@ -16,17 +16,12 @@ function MyCalendar() {
     dispatch(setSelectedDate(date));
   };
 
-  // let hours = [9, 10, 11, 12, 1, 2, 3, 4, 5];
-  // let booked = [{ start: 10 }, { start: 1 }, { start: 3 }];
-
-  // let available = findAvailableHours(hours, booked);
-  // hours={available}
   return (
     <div className="container">
       <Calendar value={selectedDate} onChange={handleDateChange} />
       <section>
-        <div>Selected date: {selectedDate && selectedDate.toDateString()}</div>
         <AvailableHours />
+
         <MyForm></MyForm>
       </section>
     </div>

@@ -6,6 +6,7 @@ import {
   setBooked,
   setAvailable,
 } from "../redux/slice/timeSlice";
+
 import findAvailableHours from "./ahhelper";
 import "./ah4.css";
 
@@ -17,15 +18,21 @@ function AvailableHours() {
   const hours = useSelector((state) => state.time.hours);
   const dispatch = useDispatch();
 
+  //let myDate = propDate ? propDate : selectedDate;
+  //let myDate = propDate !== undefined ? propDate : selectedDate;
+
   const handleClick = (hour) => {
     dispatch(setSelectedHour(hour));
   };
 
   useEffect(() => {
+    console.log("****************** selectedDate: " + selectedDate);
     const fetchBooked = async () => {
       try {
+        const timestamp = Math.floor(selectedDate?.getTime());
+
         const response = await axios.get(
-          `http://localhost:3001/data/${selectedDate.toDateString()}`
+          `http://localhost:3001/data/${timestamp}`
         );
         dispatch(setBooked(response.data));
       } catch (error) {
@@ -39,22 +46,20 @@ function AvailableHours() {
   useEffect(() => {
     const updatedAvailable = findAvailableHours(hours, booked);
     dispatch(setAvailable(updatedAvailable));
-  }, [selectedDate, booked, dispatch, hours]);
+  }, [booked, dispatch, hours]);
 
   const hoursButton = available.map((hour) => (
     <div className="hours" key={hour}>
-      <button className="hour" onClick={() => handleClick(hour)}>
+      <button
+        className={`hour ${selectedHour === hour ? "selected" : ""}`}
+        onClick={() => handleClick(hour)}
+      >
         {hour}
       </button>
     </div>
   ));
 
-  return (
-    <div className="hours-section">
-      {selectedHour && <p>Selected Hour: {selectedHour}</p>}
-      {hoursButton}
-    </div>
-  );
+  return <div className="hours-section">{hoursButton}</div>;
 }
 
 export default AvailableHours;

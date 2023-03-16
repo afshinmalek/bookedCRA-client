@@ -1,8 +1,30 @@
 .hour {
   width: 150px;
   height: 25px;
-  background-color: black;
+  background-color: transparent;
   color: white;
+  border-color: #28323b;
+  border-radius: 6px;
+}
+
+.hour:hover {
+  background-color: rgba(172, 164, 193, 0.328);
+}
+
+.hour:active {
+  transform: translateY(1px);
+}
+
+.hour:focus {
+  background-color: rgba(57, 8, 183, 0.328);
+  border-color: rgb(128, 77, 206);
+  outline-style: none;
+}
+
+.hour.selected {
+  background-color: rgba(57, 8, 183, 0.328);
+  border-color: rgb(128, 77, 206);
+  outline-style: none;
 }
 
 .hours {
@@ -11,4 +33,9 @@
 
 .hours-section {
   margin-bottom: 15px;
+}
+
+.hours-col {
+  display: flex;
+  flex-wrap: row;
 }

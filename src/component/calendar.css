@@ -1,5 +1,6 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  background-color: cornflowerblue;
+  background-color: #1d1e1f;
+  padding: 24px;
 }

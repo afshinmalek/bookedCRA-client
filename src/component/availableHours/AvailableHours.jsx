@@ -38,3 +38,4 @@ function AvailableHours() {
 }
 
 export default AvailableHours;
+//[{time: 9, date: "Sat Mar 25 2023" }, { time: 12,date: "Sat Mar 25 2023" }, { time: 3,date:"Sat Mar 25 2023" }]
