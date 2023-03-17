@@ -13,7 +13,6 @@ import {
 import { setBooked } from "../redux/slice/timeSlice";
 import { setAvailable } from "../redux/slice/timeSlice";
 
-//import { fetchAndUpdate } from "./formUtil";
 import checkValues from "./formUtilVal";
 import findAvailableHours from "../availableHours/ahhelper";
 
@@ -29,6 +28,7 @@ const MyForm = () => {
     useSelector((state) => state.date.selectedDate) || new Date();
   const hours = useSelector((state) => state.time.hours);
   const booked = useSelector((state) => state.time.booked);
+
   console.log("************** form.jsx ********* selectedDate: ", selectedDate);
   let date = new Date(selectedDate);
   let rDate = date.toDateString();
@@ -40,6 +40,20 @@ const MyForm = () => {
   };
   console.log("************** form.jsx ********* allValues: ", allValues);
   /***************************************************/
+
+  const fetchBooked = async () => {
+    try {
+      const timestamp = Math.floor(selectedDate?.getTime());
+
+      const response = await axios.get(
+        `http://localhost:3001/data/${timestamp}`
+      );
+      dispatch(setBooked(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   async function submitFormData(values) {
     try {
       const response = await axios.post(
@@ -52,19 +66,21 @@ const MyForm = () => {
         }
       );
       const data = response.data;
-      if (data.message === "Data added successfully") {
-        dispatch(setSubmitted());
-        return;
-      } else if (
-        data.message === "Combination of date and time already exists"
-      ) {
-        dispatch(setError("That time is already booked"));
-        return;
-      } else {
-        // display an error message to the user
-        dispatch(setError(data.message));
-        return;
-      }
+      const actions = {
+        "Data added successfully": () => {
+          dispatch(setSubmitted());
+          fetchBooked();
+        },
+        "Combination of date and time already exists": () => {
+          dispatch(setError("That time is already booked"));
+        },
+        default: () => {
+          dispatch(setError(data.message));
+        },
+      };
+
+      const action = actions[data.message] || actions.default;
+      action();
     } catch (error) {
       console.error(error);
       dispatch(setError("An error occurred while submitting the form."));
@@ -104,28 +120,18 @@ const MyForm = () => {
   //   console.log("*************  run first ********************");
   // }, [submitting]);
 
+  // *********** i should consider adding back the fetchBooked here ********************
+
   useEffect(() => {
-    console.log("*************  run second ********************");
-
-    console.log("****************** selectedDate: " + selectedDate);
-    const fetchBooked = async () => {
-      try {
-        const timestamp = Math.floor(selectedDate?.getTime());
-
-        const response = await axios.get(
-          `http://localhost:3001/data/${timestamp}`
-        );
-        dispatch(setBooked(response.data));
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    console.log(
+      "****** runs once *******  run second  /get / setBooked ********"
+    );
 
     fetchBooked();
-  }, [submitted, dispatch]);
+  }, []);
 
   useEffect(() => {
-    console.log("*************  run third ********************");
+    console.log("***** runs on booked ********  run third  setAvailable *****");
 
     const updatedAvailable = findAvailableHours(hours, booked);
     dispatch(setAvailable(updatedAvailable));
