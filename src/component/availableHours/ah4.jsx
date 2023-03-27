@@ -1,53 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import axios from "axios";
-import {
-  setSelectedHour,
-  setBooked,
-  setAvailable,
-} from "../redux/slice/timeSlice";
-
-import findAvailableHours from "./ahhelper";
+import { setSelectedHour } from "../redux/slice/timeSlice";
 import "./ah4.css";
 
 function AvailableHours() {
-  let selectedDate = useSelector((state) => state.date.selectedDate);
   const selectedHour = useSelector((state) => state.time.selectedHour);
-  const booked = useSelector((state) => state.time.booked);
   const available = useSelector((state) => state.time.available);
-  const hours = useSelector((state) => state.time.hours);
-  const dispatch = useDispatch();
 
-  //let myDate = propDate ? propDate : selectedDate;
-  //let myDate = propDate !== undefined ? propDate : selectedDate;
+  const dispatch = useDispatch();
 
   const handleClick = (hour) => {
     dispatch(setSelectedHour(hour));
   };
-
-  // useEffect(() => {
-  //   console.log("****************** selectedDate: " + selectedDate);
-  //   const fetchBooked = async () => {
-  //     try {
-  //       const timestamp = Math.floor(selectedDate?.getTime());
-
-  //       const response = await axios.get(
-  //         `http://localhost:3001/data/${timestamp}`
-  //       );
-  //       dispatch(setBooked(response.data));
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchBooked();
-  // }, [selectedDate, dispatch]);
-
-  // useEffect(() => {
-  //   console.log("***** runs on booked ******** ah4.jsx set available ********");
-  //   const updatedAvailable = findAvailableHours(hours, booked);
-  //   dispatch(setAvailable(updatedAvailable));
-  // }, [booked, dispatch, hours]);
 
   const hoursButton = available.map((hour) => (
     <div className="hours" key={hour}>

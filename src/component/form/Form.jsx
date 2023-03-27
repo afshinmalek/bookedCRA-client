@@ -13,7 +13,6 @@ import {
 import { setBooked } from "../redux/slice/timeSlice";
 import { setAvailable } from "../redux/slice/timeSlice";
 
-import checkValues from "./formUtilVal";
 import findAvailableHours from "../availableHours/ahhelper";
 
 const MyForm = () => {
@@ -128,6 +127,7 @@ const MyForm = () => {
     );
 
     fetchBooked();
+    console.log("***** updatedFetched2 *******", booked);
   }, []);
 
   useEffect(() => {
@@ -135,6 +135,7 @@ const MyForm = () => {
 
     const updatedAvailable = findAvailableHours(hours, booked);
     dispatch(setAvailable(updatedAvailable));
+    console.log("***** updatedAvailabe3 *******", updatedAvailable);
   }, [booked, dispatch, hours]);
 
   /**************************************************/

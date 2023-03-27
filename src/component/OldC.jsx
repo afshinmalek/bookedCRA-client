@@ -6,7 +6,7 @@ import { setSelectedDate } from "./redux/slice/dateSlice";
 import { setBooked, setAvailable } from "./redux/slice/timeSlice";
 import Calendar from "react-calendar";
 import "./cal.css";
-import findAvailableHours from "./availableHours/availableHoursHelper";
+import findAvailableHours from "./availableHours/ahhelper";
 import AvailableHours from "./availableHours/ah4";
 import MyForm from "./form/Form";
 import "./calendar.css";
@@ -20,7 +20,7 @@ function MyCalendar() {
   const fetchBooked = async (date) => {
     console.log("************* oldC.jsx first call /get /setBooked *********");
     try {
-      const timestamp = Math.floor(date || selectedDate?.getTime());
+      const timestamp = Math.floor(date || selectedDate);
 
       const response = await axios.get(
         `http://localhost:3001/data/${timestamp}`
@@ -35,16 +35,18 @@ function MyCalendar() {
   };
 
   function handleDateChange(date) {
+    console.log("********** date ***********", date);
     dispatch(setSelectedDate(date));
     fetchBooked(date);
   }
 
   return (
     <div className="container">
+      {/*<Calendar value={selectedDate} onChange={handleDateChange} />*/}
       <Calendar value={selectedDate} onChange={handleDateChange} />
+
       <section>
         <AvailableHours />
-
         <MyForm></MyForm>
       </section>
     </div>
