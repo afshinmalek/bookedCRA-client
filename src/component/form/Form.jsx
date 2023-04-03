@@ -16,7 +16,6 @@ import { setAvailable } from "../redux/slice/timeSlice";
 import findAvailableHours from "../availableHours/ahhelper";
 
 const MyForm = () => {
-  const inputRefs = useRef([]);
   const values = useSelector((state) => state.form.values);
   const submitting = useSelector((state) => state.form.submitting);
   const submitted = useSelector((state) => state.form.submitted);
@@ -92,15 +91,6 @@ const MyForm = () => {
     dispatch(setSubmitting());
     submitFormData(allValues);
 
-    // const hasValidValues = await checkValues(
-    //   event,
-    //   values,
-    //   dispatch,
-    //   inputRefs
-    // );
-    // if (!hasValidValues || submitting) {
-    //   return;
-    // }
     if (submitting) {
       return;
     }
@@ -148,6 +138,8 @@ const MyForm = () => {
     dispatch(reset());
   };
 
+  console.log("submitted: ", submitted);
+  console.log("submitting: ", submitting);
   const formClassName = submitting ? "form-input submitting" : "form-input";
 
   return (
@@ -181,22 +173,20 @@ const MyForm = () => {
             value={values.name ?? undefined}
             onChange={handleChange}
             autoComplete="off"
-            required
-            ref={(el) => (inputRefs.current[0] = el)}
+            placeholder=" "
           />
-          <label>Name</label>
+          <label id="name">Name</label>
         </div>
         <div className="groupInput">
           <input
+            type="text"
             name="email"
             value={values.email ?? undefined}
             onChange={handleChange}
             autoComplete="off"
-            required
-            minLength={1}
-            ref={(el) => (inputRefs.current[1] = el)}
+            placeholder=" "
           />
-          <label>Email</label>
+          <label id="email">Email</label>
         </div>
       </div>
       <div className="submit">
