@@ -19,7 +19,7 @@ function AvailableHours() {
         className={`hour ${selectedHour === hour ? "selected" : ""}`}
         onClick={() => handleClick(hour)}
       >
-        {hour}
+        {hour}:00{hour <= 12 && hour >= 9 ? " AM " : " PM"}
       </button>
     </div>
   ));

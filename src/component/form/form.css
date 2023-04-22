@@ -65,8 +65,7 @@ input:not(:placeholder-shown) + label {
 }
 
 .form-input {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
   padding-left: 1rem;
 }
 
@@ -130,11 +129,26 @@ input:not(:placeholder-shown) + label {
 
 .err {
   color: #d2511f;
-  font-size: small;
+  font-size: 13px;
+  padding-top: 9px;
 }
 
 .success {
   color: #a1a9c9;
+  font-size: 12px;
+  padding-top: 9px;
+}
+
+.hours-section {
+  padding-left: 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+section {
+  display: flex;
 }
 
 .colors {

@@ -45,7 +45,7 @@ function MyCalendar() {
       {/*<Calendar value={selectedDate} onChange={handleDateChange} />*/}
       <Calendar value={selectedDate} onChange={handleDateChange} />
 
-      <section>
+      <section className="hour-form">
         <AvailableHours />
         <MyForm></MyForm>
       </section>

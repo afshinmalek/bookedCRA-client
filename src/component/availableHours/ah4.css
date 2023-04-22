@@ -1,10 +1,17 @@
 .hour {
-  width: 150px;
+  width: 140px;
   height: 25px;
   background-color: transparent;
   color: white;
   border-color: #28323b;
   border-radius: 6px;
+  flex-shrink: 1;
+}
+
+@media (max-width: 415px) {
+  .hour {
+    width: 6rem;
+  }
 }
 
 .hour:hover {
