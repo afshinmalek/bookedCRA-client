@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import "./form.css";
 
@@ -105,11 +105,6 @@ const MyForm = () => {
   };
 
   /*********************************************/
-  // useEffect(() => {
-  //   console.log("*************  run first ********************");
-  // }, [submitting]);
-
-  // *********** i should consider adding back the fetchBooked here ********************
 
   useEffect(() => {
     console.log(
