@@ -42,7 +42,6 @@ function MyCalendar() {
 
   return (
     <div className="container">
-      {/*<Calendar value={selectedDate} onChange={handleDateChange} />*/}
       <Calendar value={selectedDate} onChange={handleDateChange} />
 
       <section className="hour-form">
