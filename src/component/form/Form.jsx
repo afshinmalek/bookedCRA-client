@@ -58,11 +58,11 @@ const MyForm = () => {
       console.error(error);
     }
   };
-  let path = appUrl + "/submit-form";
-  console.log("path**********************************", path);
+  let myPath = appUrl + "/submit-form";
+  console.log("path**********************************", myPath);
   async function submitFormData(values) {
     try {
-      const response = await axios.post(path, values, {
+      const response = await axios.post(myPath, values, {
         headers: {
           "Content-Type": "application/json",
         },
