@@ -19,9 +19,7 @@ dotenv.config();
 
 const MyForm = () => {
   let appUrl = process.env.REACT_APP_APP_URL;
-  let appPort = process.env.REACT_APP_APP_PORT;
   console.log("************** ENV ********* ENV: ", appUrl);
-  console.log("************** ENV ********* ENV: ", appPort);
 
   const values = useSelector((state) => state.form.values);
   const submitting = useSelector((state) => state.form.submitting);
@@ -50,13 +48,13 @@ const MyForm = () => {
     try {
       const timestamp = Math.floor(selectedDate?.getTime());
 
-      const response = await axios.get(`${appUrl}${appPort}/data/${timestamp}`);
+      const response = await axios.get(`${appUrl}/data/${timestamp}`);
       dispatch(setBooked(response.data));
     } catch (error) {
       console.error(error);
     }
   };
-  let path = appUrl + appPort + "/submit-form";
+  let path = appUrl + "/submit-form";
   console.log("path**********************************", path);
   async function submitFormData(values) {
     try {
