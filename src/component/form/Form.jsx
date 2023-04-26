@@ -58,7 +58,7 @@ const MyForm = () => {
       console.error(error);
     }
   };
-  let myPath = appUrl + "/submit-form";
+  let myPath = `${appUrl}/submit-form`;
   console.log("path**********************************", myPath);
   async function submitFormData(values) {
     try {
