@@ -26,7 +26,13 @@ function MyCalendar() {
     try {
       const timestamp = Math.floor(date || selectedDate);
 
-      const response = await axios.get(`${appUrl}/data/${timestamp}`);
+      const response = await axios.get(`${appUrl}/data/${timestamp}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin":
+            "https://book-it-backend.herokuapp.com/",
+        },
+      });
       dispatch(setBooked(response.data));
 
       const updatedAvailable = findAvailableHours(hours, booked);

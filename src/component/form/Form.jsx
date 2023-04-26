@@ -48,7 +48,13 @@ const MyForm = () => {
     try {
       const timestamp = Math.floor(selectedDate?.getTime());
 
-      const response = await axios.get(`${appUrl}/data/${timestamp}`);
+      const response = await axios.get(`${appUrl}/data/${timestamp}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin":
+            "https://book-it-backend.herokuapp.com/",
+        },
+      });
       dispatch(setBooked(response.data));
     } catch (error) {
       console.error(error);
@@ -61,6 +67,8 @@ const MyForm = () => {
       const response = await axios.post(path, values, {
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin":
+            "https://book-it-backend.herokuapp.com/",
         },
       });
       const data = response.data;
