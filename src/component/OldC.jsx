@@ -29,8 +29,6 @@ function MyCalendar() {
       const response = await axios.get(`${appUrl}/data/${timestamp}`, {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":
-            "https://book-it-backend.herokuapp.com/",
         },
       });
       dispatch(setBooked(response.data));

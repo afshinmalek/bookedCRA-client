@@ -51,8 +51,6 @@ const MyForm = () => {
       const response = await axios.get(`${appUrl}/data/${timestamp}`, {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":
-            "https://book-it-backend.herokuapp.com/",
         },
       });
       dispatch(setBooked(response.data));
@@ -67,8 +65,6 @@ const MyForm = () => {
       const response = await axios.post(path, values, {
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":
-            "https://book-it-backend.herokuapp.com/",
         },
       });
       const data = response.data;
