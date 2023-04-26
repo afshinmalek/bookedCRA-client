@@ -14,8 +14,15 @@ import { setBooked } from "../redux/slice/timeSlice";
 import { setAvailable } from "../redux/slice/timeSlice";
 
 import findAvailableHours from "../availableHours/ahhelper";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const MyForm = () => {
+  let appUrl = process.env.REACT_APP_APP_URL;
+  let appPort = process.env.REACT_APP_APP_PORT;
+  console.log("************** ENV ********* ENV: ", appUrl);
+  console.log("************** ENV ********* ENV: ", appPort);
+
   const values = useSelector((state) => state.form.values);
   const submitting = useSelector((state) => state.form.submitting);
   const submitted = useSelector((state) => state.form.submitted);
@@ -43,26 +50,21 @@ const MyForm = () => {
     try {
       const timestamp = Math.floor(selectedDate?.getTime());
 
-      const response = await axios.get(
-        `http://localhost:3001/data/${timestamp}`
-      );
+      const response = await axios.get(`${appUrl}${appPort}/data/${timestamp}`);
       dispatch(setBooked(response.data));
     } catch (error) {
       console.error(error);
     }
   };
-
+  let path = appUrl + appPort + "/submit-form";
+  console.log("path**********************************", path);
   async function submitFormData(values) {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/submit-form",
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(path, values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = response.data;
       const actions = {
         "Data added successfully": () => {

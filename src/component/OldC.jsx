@@ -10,6 +10,11 @@ import findAvailableHours from "./availableHours/ahhelper";
 import AvailableHours from "./availableHours/ah4";
 import MyForm from "./form/Form";
 import "./calendar.css";
+import * as dotenv from "dotenv";
+dotenv.config();
+
+let appUrl = process.env.REACT_APP_APP_URL;
+let appPort = process.env.REACT_APP_APP_PORT;
 
 function MyCalendar() {
   const selectedDate = useSelector((state) => state.date.selectedDate);
@@ -21,10 +26,9 @@ function MyCalendar() {
     console.log("************* oldC.jsx first call /get /setBooked *********");
     try {
       const timestamp = Math.floor(date || selectedDate);
+      let urlPort = appUrl + appPort;
 
-      const response = await axios.get(
-        `http://localhost:3001/data/${timestamp}`
-      );
+      const response = await axios.get(`${urlPort}/data/${timestamp}`);
       dispatch(setBooked(response.data));
 
       const updatedAvailable = findAvailableHours(hours, booked);
