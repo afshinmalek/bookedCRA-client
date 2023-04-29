@@ -10,7 +10,8 @@ import {
   setError,
   reset,
 } from "../redux/slice/formSlice";
-import { setBooked } from "../redux/slice/timeSlice";
+import { setBooked, setSelectedHour } from "../redux/slice/timeSlice";
+
 import { setAvailable } from "../redux/slice/timeSlice";
 
 import findAvailableHours from "../availableHours/ahhelper";
@@ -135,6 +136,7 @@ const MyForm = () => {
 
   const handleReset = () => {
     dispatch(reset());
+    dispatch(setSelectedHour(""));
   };
 
   console.log("submitted: ", submitted);

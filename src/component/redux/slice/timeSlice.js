@@ -4,8 +4,8 @@ import produce from "immer";
 const availableHoursSlice = createSlice({
   name: "time",
   initialState: {
-    selectedHour: null,
-    timeDate: null,
+    selectedHour: "",
+    timeDate: "",
     booked: [],
 
     available: [],
@@ -37,7 +37,6 @@ export const {
   setTimeDate,
   setHours,
   setBooked,
-
   setAvailable,
 } = availableHoursSlice.actions;
 

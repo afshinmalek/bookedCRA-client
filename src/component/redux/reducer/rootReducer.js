@@ -8,7 +8,6 @@ const rootReducer = combineReducers({
   form: formReducer,
   date: dateReducer,
   time: timeReducer,
-  //mai: maiReducer,
 });
 
 export default rootReducer;
