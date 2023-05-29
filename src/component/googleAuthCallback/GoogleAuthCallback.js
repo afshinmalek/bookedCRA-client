@@ -8,7 +8,7 @@ const GoogleAuthCallback = () => {
     // After that, you can redirect the user to the dashboard or any other desired page
     // You can access the query parameters sent by the Google OAuth callback using the "location" object
     // For example, if you need the "code" parameter: const code = new URLSearchParams(location.search).get("code");
-
+    // 1
     // Redirect the user to the dashboard or any other desired page
     window.location.href = "/dashboard";
   }, []);
