@@ -15,7 +15,7 @@ input {
   transition: border-color 0.6s ease;
 
   min-width: 7rem;
-  max-width: 9rem;
+  max-width: 8rem;
   font-size: 14px;
   height: 20px;
   padding: 6px 8px;
@@ -149,25 +149,4 @@ input:not(:placeholder-shown) + label {
 
 section {
   display: flex;
-}
-
-.colors {
-  --bg-color: #101111;
-  --bg-blue-color: #253650;
-  --bg-light-color: #1d1e1f;
-  --bg-red-color: #ea4335;
-  --link-color: #9bb6df;
-  --visited-color: #906f51;
-  --link-header-color: #6b886b;
-  --front-color: #aaa6a2;
-  --selection-color: #eeeeee;
-  --selection-bg: #404040;
-  --button-bg: #1a73e8;
-  --front-light-color: #ddd8d2;
-  --front-dark-color: #1e2022;
-  --box-shadow-color: #37383b;
-  --border-light-color: #35383b;
-  --border-blue-color: #80a5de;
-  --border-red-color: #ea4335;
-  --fix-light-color: #fff;
 }

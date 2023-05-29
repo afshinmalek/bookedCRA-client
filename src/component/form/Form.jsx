@@ -28,28 +28,25 @@ const MyForm = () => {
   const error = useSelector((state) => state.form.error);
   const dispatch = useDispatch();
   const selectedHour = useSelector((state) => state.time.selectedHour);
-  const selectedDate =
+  let selectedDate =
     useSelector((state) => state.date.selectedDate) || new Date();
+
   const hours = useSelector((state) => state.time.hours);
   const booked = useSelector((state) => state.time.booked);
 
   console.log("************** form.jsx ********* selectedDate: ", selectedDate);
-  let date = new Date(selectedDate);
-  let rDate = date.toDateString();
-
+  selectedDate = new Date(selectedDate).toDateString();
   const allValues = {
     ...values,
     time: selectedHour,
-    date: rDate,
+    date: selectedDate,
   };
   console.log("************** form.jsx ********* allValues: ", allValues);
   /***************************************************/
 
   const fetchBooked = async () => {
     try {
-      const timestamp = Math.floor(selectedDate?.getTime());
-
-      const response = await axios.get(`${appUrl}/data/${timestamp}`, {
+      const response = await axios.get(`${appUrl}/data/${selectedDate}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -121,12 +118,13 @@ const MyForm = () => {
   }, []);
 
   useEffect(() => {
-    console.log("***** runs on booked ********  run third  setAvailable *****");
-
-    const updatedAvailable = findAvailableHours(hours, booked);
-    dispatch(setAvailable(updatedAvailable));
-    console.log("***** updatedAvailabe3 *******", updatedAvailable);
-  }, [booked, dispatch, hours]);
+    let availableHours = findAvailableHours({ hours, booked }, selectedDate);
+    dispatch(setAvailable(availableHours));
+    console.log(
+      "**************** FindAvailableHours **************",
+      availableHours
+    );
+  }, [booked]);
 
   /**************************************************/
   const handleChange = (event) => {
@@ -151,7 +149,7 @@ const MyForm = () => {
             type="text"
             name="date"
             placeholder="date"
-            value={rDate ?? undefined}
+            value={selectedDate ?? undefined}
             readOnly
           />
           <label id="date">Date</label>

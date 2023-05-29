@@ -14,6 +14,7 @@
     "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.2",
     "react-scripts": "^4.0.3",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
@@ -23,7 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "rm -rf build && npm run build && wait-on build/index.html && git add . && git commit -m \"$npm_config_message\" && git push heroku master"
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "wait-on": "^7.0.1"
   }
 }

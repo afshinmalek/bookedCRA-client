@@ -4,11 +4,15 @@ import produce from "immer";
 const dateSlice = createSlice({
   name: "date",
   initialState: {
-    selectedDate: null,
+    selectedDate: "",
   },
   reducers: {
     setSelectedDate: produce((state, action) => {
-      state.selectedDate = action.payload;
+      if (action.payload && !(typeof action.payload === "string")) {
+        state.selectedDate = action.payload.toDateString();
+      } else {
+        state.selectedDate = action.payload;
+      }
     }),
   },
 });

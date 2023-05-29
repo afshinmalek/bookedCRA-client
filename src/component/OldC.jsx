@@ -6,11 +6,11 @@ import { setSelectedDate } from "./redux/slice/dateSlice";
 import { setBooked, setAvailable } from "./redux/slice/timeSlice";
 import Calendar from "react-calendar";
 import "./cal.css";
-import findAvailableHours from "./availableHours/ahhelper";
 import AvailableHours from "./availableHours/ah4";
 import MyForm from "./form/Form";
 import "./calendar.css";
 import * as dotenv from "dotenv";
+import findAvailableHours from "./availableHours/ahhelper";
 dotenv.config();
 
 let appUrl = process.env.REACT_APP_APP_URL;
@@ -24,23 +24,24 @@ function MyCalendar() {
   const fetchBooked = async (date) => {
     console.log("************* oldC.jsx first call /get /setBooked *********");
     try {
-      const timestamp = Math.floor(date || selectedDate);
-
-      const response = await axios.get(`${appUrl}/data/${timestamp}`, {
+      const response = await axios.get(`${appUrl}/data/${date}`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       dispatch(setBooked(response.data));
+      let updatedHours = findAvailableHours({ hours, booked }, selectedDate);
 
-      const updatedAvailable = findAvailableHours(hours, booked);
-      dispatch(setAvailable(updatedAvailable));
+      dispatch(setAvailable(updatedHours));
     } catch (error) {
       console.error(error);
     }
   };
 
   function handleDateChange(date) {
+    if (date && !(typeof date === "string")) {
+      date = date.toDateString();
+    }
     console.log("********** date ***********", date);
     dispatch(setSelectedDate(date));
     fetchBooked(date);

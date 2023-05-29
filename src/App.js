@@ -1,20 +1,23 @@
 import "./App.css";
-import MyCalendar from "./component/OldC";
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./component/navbar/Navbar";
+import HomePage from "./component/homePage/HomePage";
+import DashBoardPage from "./component/dashBoardPage/DashBoardPage";
 
 function App() {
   return (
-    <div className="App">
-      <div className="app-border">
-        <div className="left-side">
-          <h3 className="welcome">Book your Appointment!</h3>
-          <img className="pic" src="/pictures/time3.png" alt="" />
-        </div>
-        <div className="bird-sitting">
-          <MyCalendar />
-          <img className="pic-b" src="/pictures/bird4.png" alt="" />
-        </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<DashBoardPage />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
