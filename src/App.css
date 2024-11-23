@@ -136,3 +136,9 @@
   padding-right: 2.5rem;
   padding-top: 0.5rem;
 }
+
+@media (min-width: 714px) and (max-width: 772px) {
+  .app-border {
+    margin-top: 10px;
+  }
+}

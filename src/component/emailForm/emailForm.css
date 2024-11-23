@@ -1,0 +1,12 @@
+.form-lable {
+  position: absolute;
+  background-color: #1d1e1f;
+  padding-right: 4px;
+  padding-left: 4px;
+  top: 10px;
+  left: 10px;
+  font-size: 16px;
+  color: #d3caca;
+  transition: all 0.4s ease-out;
+  pointer-events: none;
+}

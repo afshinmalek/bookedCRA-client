@@ -159,7 +159,7 @@ const MyForm = () => {
           <input
             type="text"
             name="time"
-            placeholder="time"
+            placeholder=" "
             value={selectedHour ?? undefined}
             readOnly
           />
