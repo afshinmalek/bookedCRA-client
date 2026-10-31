@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📅 BookMe — Booking App (Client)
 
-## Available Scripts
+### React · Redux Toolkit · React Calendar · Google OAuth
 
-In the project directory, you can run:
+A full-stack booking application: pick a date and time, book it, and get a confirmation email with a cancellation link. Bookings are unique per date + time, so double-booking is blocked at the database level.
 
-### `npm start`
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ✨ Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Feature | How it works |
+| --- | --- |
+| 📆 Calendar booking | Pick a date and time with `react-calendar`; available slots come from the server |
+| 🔐 Google sign-in | Sign in with Google OAuth, then book from your dashboard |
+| 📧 Confirmation emails | Every booking emails a confirmation with a cancellation link |
+| 🚫 No double-bookings | The server enforces a unique date + time index in MongoDB |
+| 📊 Dashboard | See your bookings and cancel from the dashboard |
 
-### `npm run build`
+## 🧩 How it fits together
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+bookedCRA-client (this repo, React, port 3000)
+        │  REST + Google OAuth
+        ▼
+bookedCRA-server (Express + MongoDB, port 3001)
+        │  Mongoose, Passport, Nodemailer
+        ▼
+MongoDB · Gmail confirmation emails
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> **Server repo:** [bookedCRA-server](https://github.com/afshinmalek/bookedCRA-server)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Run it locally
 
-### `npm run eject`
+```bash
+# 1. Server first (see its README for env vars)
+cd ../bookedCRA-server && npm install && npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# 2. Client
+npm install
+cp .env.example .env   # then fill in REACT_APP_CLIENT_ID
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Open [http://localhost:3000](http://localhost:3000).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🔑 Environment variables
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+See `.env.example`. Never commit a real `.env` file — it is ignored by `.gitignore`.
 
-## Learn More
+| Variable | Used for |
+| --- | --- |
+| `REACT_APP_APP_URL` | Server URL the client talks to |
+| `REACT_APP_APP_PORT_NUM` | Server port |
+| `REACT_APP_CLIENT_ID` | Google OAuth client ID |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ Tech
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React 18 · Redux Toolkit · React Router · React Calendar · Axios · Create React App
