@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📅 BookMe — Booking App (Client)
+# 📅 BookMe - Booking App (Client)
 
 ### React · Redux Toolkit · React Calendar · Google OAuth
 
@@ -55,7 +55,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## 🔑 Environment variables
 
-See `.env.example`. Never commit a real `.env` file — it is ignored by `.gitignore`.
+See `.env.example`. Never commit a real `.env` file - it is ignored by `.gitignore`.
 
 | Variable | Used for |
 | --- | --- |
